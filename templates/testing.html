@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon"/>-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
+
+    <title>In Sight</title>
+</head>
+<body>
+<h2>Тестирование в процессе. Вы в поле зрения!</h2>
+<div class="camera_load">
+    <img src="{{ url_for('test_api.video') }}"/>
+</div>
+<div class="form-buttons">
+    <p>{{ form.submit_ready(type="submit", class="button") }}</p>
+    <div>{{ message }}</div>
+</div>
+</body>
+</html>

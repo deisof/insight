@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<main class="login_main">
+    <div class="circle"></div>
+    <div class="login-form-container">
+        <form action="" method="post">
+            <h1 class="form-title">Авторизация</h1>
+            {{ form.hidden_tag() }}
+            <div class="form-fields">
+            <p>
+                {{ form.login.label }}<br>
+                {{ form.login(class="form-field") }}<br>
+                {% for error in form.login.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endfor %}
+            </p>
+            <p>
+                {{ form.password.label }}<br>
+                {{ form.password(class="form-field", type="password") }}<br>
+                {% for error in form.password.errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+            {% endfor %}
+            </p>
+            <div class="form-buttons">
+            <p>{{ form.submit(type="submit", class="button") }}</p>
+            <div>{{ message }}</div>
+            <div class="divider">или</div>
+            <a href="/register" class="button button-enter">Регистрация</a>
+
+            </div>
+
+            </div>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>

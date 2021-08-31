@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
+{% if current_user.is_authenticated and current_user.privilege_id == 0 %}
+<table class="mytest-table">
+    <tr>
+        <th>Логин учителя</th>
+        <th>Описание тестирования</th>
+        <th>Начать</th>
+    </tr>
+    {% for item in test_st %}
+
+    <tr>
+        <td class="themed-grid-col">{{ item.login_teacher }}</td>
+        <td class="themed-grid-col">{{ item.description }}</td>
+        <td class="themed-grid-col"><a href="/testing/{{ item.id }}" class="button">Начать</a></td>
+    </tr>
+
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if current_user.is_authenticated and current_user.privilege_id == 1 %}
+<table class="mytest-table">
+    <tr>
+        <th>Логин ученика</th>
+        <th>Описание тестирования</th>
+        <th>Удалить</th>
+        <th>Изменить</th>
+    </tr>
+    {% for item in test_te %}
+
+    <tr>
+        <td class="themed-grid-col">{{ item.login_student }}</td>
+        <td class="themed-grid-col">{{ item.description }}</td>
+        <td class="themed-grid-col"><a href="/delete" class="button">Удалить</a></td>
+        <td class="themed-grid-col"><a href="/change" class="button">Изменить</a></td>
+    </tr>
+
+    {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}

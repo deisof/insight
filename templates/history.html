@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>История тестирования</title>
+</head>
+
+<body>
+
+<table class="mytest-table">
+    <tr>
+        <th>Логин учителя</th>
+        <th>Логин ученика</th>
+        <th>Описание тестирования</th>
+        <th>Результат</th>
+        <th>Отправить на почту</th>
+    </tr>
+    {% for item in test %}
+
+    <tr>
+        <td>{{ item.login_teacher }}</td>
+        <td>{{ item.login_student }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.result }}</td>
+        <td><a href="/send_email" class="button">Отправить отчёт</a></td>
+    </tr>
+
+    {% endfor %}
+</table>
+
+</body>
+</html>

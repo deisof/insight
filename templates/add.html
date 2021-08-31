@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление нового тестирования</title>
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<main class="login_main">
+    <div class="circle"></div>
+    <div class="login-form-container">
+        <h1 class="form-title">Создание тестирования</h1>
+        <form action="" method="post">
+            {{ form.hidden_tag() }}
+            <div class="form-fields">
+            <p>
+                {{ form.login_student.label }}<br>
+                {{ form.login_student(class="form-field") }}<br>
+                {% for error in form.login_student.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+            {% endfor %}
+            </p>
+
+            <p>
+                {{ form.description.label }}<br>
+                {{ form.description(class="form-field") }}<br>
+                {% for error in form.description.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+                {% endfor %}
+            </p>
+            </div>
+
+            <div class="form-buttons">
+            <p>{{ form.submit(type="submit", class="button") }}</p>
+            {{message}}
+            </div>
+
+        </form>
+    </div>
+</main>
+</body>
+</html>
