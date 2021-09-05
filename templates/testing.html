@@ -2,20 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<!--    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon"/>-->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}" type="text/css"/>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
-
     <title>In Sight</title>
+
 </head>
-<body>
+<body class="table_page">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="back" viewBox="0 0 16 16">
+        <path d="M8.021 11.9 3.453 8.62a.719.719 0 0 1 0-1.238L8.021 4.1a.716.716 0 0 1 1.079.619V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"></path>
+        <path d="M5.232 4.293a.5.5 0 0 1-.106.7L1.114 7.945a.5.5 0 0 1-.042.028.147.147 0 0 0 0 .252.503.503 0 0 1 .042.028l4.012 2.954a.5.5 0 1 1-.593.805L.539 9.073a1.147 1.147 0 0 1 0-1.946l3.994-2.94a.5.5 0 0 1 .699.106z"></path>
+    </symbol>
+</svg>
+<div>
+
+    <a href="/base" class="btn btn-primary">
+        <svg class="bi me-2" width="16" height="16">
+            <use xlink:href="#back"></use>
+        </svg>
+        Назад</a>
+
+</div>
 <h2>Тестирование в процессе. Вы в поле зрения!</h2>
-<div class="camera_load">
+<div>
     <img src="{{ url_for('test_api.video') }}"/>
 </div>
-<div class="form-buttons">
-    <p>{{ form.submit_ready(type="submit", class="button") }}</p>
-    <div>{{ message }}</div>
+<div class="for_form">
+<form action="" method="post">
+<div>
+    <a>{{ form.submit_ready(type="submit", class="btn btn-primary") }}</a>
+    {{message}}
+</div>
+</form>
+</div>
 </div>
 </body>
 </html>

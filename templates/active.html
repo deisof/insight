@@ -1,46 +1,72 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Активные тестирования</title>
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+</head>
 
+<body class="table_page">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+<symbol id="back" viewBox="0 0 16 16">
+    <path d="M8.021 11.9 3.453 8.62a.719.719 0 0 1 0-1.238L8.021 4.1a.716.716 0 0 1 1.079.619V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"></path>
+    <path d="M5.232 4.293a.5.5 0 0 1-.106.7L1.114 7.945a.5.5 0 0 1-.042.028.147.147 0 0 0 0 .252.503.503 0 0 1 .042.028l4.012 2.954a.5.5 0 1 1-.593.805L.539 9.073a1.147 1.147 0 0 1 0-1.946l3.994-2.94a.5.5 0 0 1 .699.106z"></path>
+</symbol>
+</svg>
+<div>
 
-{% block content %}
-<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
-{% if current_user.is_authenticated and current_user.privilege_id == 0 %}
-<table class="mytest-table">
-    <tr>
-        <th>Логин учителя</th>
-        <th>Описание тестирования</th>
-        <th>Начать</th>
-    </tr>
-    {% for item in test_st %}
+    <a href="/base" class="btn btn-primary">
+        <svg class="bi me-2" width="16" height="16">
+            <use xlink:href="#back"></use>
+        </svg>
+        Назад</a>
 
-    <tr>
-        <td class="themed-grid-col">{{ item.login_teacher }}</td>
-        <td class="themed-grid-col">{{ item.description }}</td>
-        <td class="themed-grid-col"><a href="/testing/{{ item.id }}" class="button">Начать</a></td>
-    </tr>
+</div>
+<div style="text-align: center;">
+    {% if current_user.is_authenticated and current_user.privilege_id == 0 %}
+    <table class="mytest-table">
+        <tr>
+            <th>Логин учителя</th>
+            <th>Описание тестирования</th>
+            <th>Начать</th>
+        </tr>
+        {% for item in test_st %}
 
-    {% endfor %}
-</table>
-{% endif %}
+        <tr>
+            <td>{{ item.login_teacher }}</td>
+            <td>{{ item.description }}</td>
+            <td><a href="/testing/{{ item.id }}" class="btn btn-primary">Начать</a></td>
+        </tr>
 
-{% if current_user.is_authenticated and current_user.privilege_id == 1 %}
-<table class="mytest-table">
-    <tr>
-        <th>Логин ученика</th>
-        <th>Описание тестирования</th>
-        <th>Удалить</th>
-        <th>Изменить</th>
-    </tr>
-    {% for item in test_te %}
+        {% endfor %}
+    </table>
+    {% endif %}
 
-    <tr>
-        <td class="themed-grid-col">{{ item.login_student }}</td>
-        <td class="themed-grid-col">{{ item.description }}</td>
-        <td class="themed-grid-col"><a href="/delete" class="button">Удалить</a></td>
-        <td class="themed-grid-col"><a href="/change" class="button">Изменить</a></td>
-    </tr>
+    {% if current_user.is_authenticated and current_user.privilege_id == 1 %}
+    <table class="mytest-table">
+        <tr>
+            <th>Логин ученика</th>
+            <th>Описание тестирования</th>
+            <th>Удалить</th>
+            <th>Изменить</th>
+        </tr>
+        {% for item in test_te %}
 
-    {% endfor %}
-</table>
-{% endif %}
+        <tr>
+            <td>{{ item.login_student }}</td>
+            <td>{{ item.description }}</td>
+            <td><a href="/delete_test/{{ item.id }}" class="btn btn-primary">Удалить</a></td>
+            <td><a href="/edit_test/{{ item.id }}" class="btn btn-primary">Изменить</a></td>
+        </tr>
 
-{% endblock %}
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+</body>
+</html>

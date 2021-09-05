@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
@@ -17,82 +17,82 @@
         <form action="" method="post">
             {{ form.hidden_tag() }}
             <div class="form-fields">
-            <p>
-                {{ form.login.label }}<br>
-                {{ form.login(class="form-field") }}<br>
-                {% for error in form.login.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
+                <p>
+                    {{ form.login.label }}<br>
+                    {{ form.login(class="form-field") }}<br>
+                    {% for error in form.login.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
 
-            <p>
-                {{ form.name.label }}<br>
-                {{ form.name(class="form-field") }}<br>
-                {% for error in form.name.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
+                <p>
+                    {{ form.name.label }}<br>
+                    {{ form.name(class="form-field") }}<br>
+                    {% for error in form.name.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
 
-            <p>
-                {{ form.surname.label }}<br>
-                {{ form.surname(class="form-field") }}<br>
-                {% for error in form.surname.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
+                <p>
+                    {{ form.surname.label }}<br>
+                    {{ form.surname(class="form-field") }}<br>
+                    {% for error in form.surname.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
 
-            <p>
-                {{ form.patronymic.label }}<br>
-                {{ form.patronymic(class="form-field") }}<br>
-                {% for error in form.patronymic.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
+                <p>
+                    {{ form.patronymic.label }}<br>
+                    {{ form.patronymic(class="form-field") }}<br>
+                    {% for error in form.patronymic.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
 
-            <p>
-                {{ form.email.label }}<br>
-                {{ form.email(class="form-field", type="email") }}<br>
-                {% for error in form.email.errors %}
-            <div class="alert alert-danger" role="alert">
-                {{ error }}
-            </div>
-            {% endfor %}
-            </p>
+                <p>
+                    {{ form.email.label }}<br>
+                    {{ form.email(class="form-field", type="email") }}<br>
+                    {% for error in form.email.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                {% endfor %}
+                </p>
 
-            <p>
-                {{ form.password.label }}<br>
-                {{ form.password(class="form-field", type="password") }}<br>
-                {% for error in form.password.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
+                <p>
+                    {{ form.password.label }}<br>
+                    {{ form.password(class="form-field", type="password") }}<br>
+                    {% for error in form.password.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
             </div>
             <div class="select">
-            <p>
-                {{ form.privilege_id.label }}<br>
-                {{ form.privilege_id() }}<br>
-                {% for error in form.privilege_id.errors %}
-            <p class="alert alert-danger" role="alert">
-                {{ error }}
-            </p>
-            {% endfor %}
-            </p>
+                <p>
+                    {{ form.privilege_id.label }}<br>
+                    {{ form.privilege_id() }}<br>
+                    {% for error in form.privilege_id.errors %}
+                <p class="alert alert-danger" role="alert">
+                    {{ error }}
+                </p>
+                {% endfor %}
+                </p>
             </div>
             <div class="form-buttons">
-            <p>{{ form.submit(type="submit", class="button") }}</p>
-            {{message}}
-            <div class="divider">или</div>
-            <a href="/login" class="button button-google">Вход</a>
+                <p>{{ form.submit(type="submit", class="button") }}</p>
+                {{message}}
+                <div class="divider">или</div>
+                <a href="/login" class="button button-google">Вход</a>
             </div>
         </form>
     </div>

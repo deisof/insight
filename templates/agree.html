@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Согласие с правилами использования</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous">
+
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
+
+<!--    <style>-->
+<!--      .bd-placeholder-img {-->
+
+<!--        font-size: 100%;-->
+<!--        text-anchor: middle;-->
+<!--        -webkit-user-select: none;-->
+<!--        -moz-user-select: none;-->
+<!--        user-select: none;-->
+<!--      }-->
+
+<!--      @media (min-width: 768px) {-->
+<!--        .bd-placeholder-img-lg {-->
+<!--          font-size: 100%;-->
+<!--        }-->
+<!--      }-->
+
+
+<!--    </style>-->
+
+
+</head>
+
+<body class="agree">
+<div class="modal modal-alert position-static d-block bg-secondary py-5" tabindex="-1" role="dialog"
+     id="modalChoice" style="height: 100%;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-body p-4 text-center">
+                <h5 class="mb-0">Вы согласны с правилами использования системы прокторинга In sight?</h5>
+                <p class="mb-0">Для дальнейшей работы с системой нажмите на кнопку ниже.</p>
+            </div>
+            <div class="modal-footer flex-nowrap p-0">
+                <a href="/" type="button"
+                   class="btn_agree btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right">
+                    <button type="button"
+                            class="btn_agree btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right">
+                        <strong>Да</strong></button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -40,6 +40,10 @@ def register():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
+        if db_sess.query(User).filter(User.login == form.login.data).first():
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Такой пользователь уже есть")
         user = User()
         user.login = form.login.data
         user.email = form.email.data
@@ -52,6 +56,11 @@ def register():
         session.add(user)
 
         session.commit()
-        return redirect('/')
+        return redirect('/agree')
     return render_template('register.html', title='Регистрация',
                            form=form)
+
+
+@blueprint.route('/agree', methods=['GET', 'POST'])
+def agree():
+    return render_template('agree.html')

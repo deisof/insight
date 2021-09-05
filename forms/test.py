@@ -14,3 +14,7 @@ class TestForm(FlaskForm):
 
 class Ready(FlaskForm):
     submit_ready = SubmitField('Завершить')
+
+
+class Send(FlaskForm):
+    submit_send = SubmitField('Отправить отчёт')

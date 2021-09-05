@@ -1,8 +1,6 @@
 import sqlalchemy
 from data.db_session import SqlAlchemyBase
 
-# from forms.jobs import JobsForm, AddressJob, Ready
-
 
 class Test(SqlAlchemyBase):
     __tablename__ = 'test'

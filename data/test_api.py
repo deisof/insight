@@ -1,13 +1,17 @@
 import flask
-from flask import render_template, request, Response
+from flask import render_template, request, Response, abort
 from flask_login import current_user, login_required
 from werkzeug.utils import redirect
 from data import db_session
 from data.test import Test
 from forms.test import TestForm, Ready
 import functions as funcs
-from Timer import RepeatedTimer
-from main import camera, face_cascade
+from main import camera
+import cv2
+from functions import s, write_file
+import string
+import secrets
+from flask import send_file
 
 blueprint = flask.Blueprint('test_api', __name__, template_folder='templates')
 
@@ -26,6 +30,8 @@ def base():
 @blueprint.route("/video")
 @login_required
 def video():
+    camera = cv2.VideoCapture(0)
+    face_cascade = cv2.CascadeClassifier('data_cam/haarcascades/haarcascade_frontalface_alt.xml')
     return Response(funcs.generate_frames(camera, face_cascade),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -39,11 +45,17 @@ def test_func():
 def testing(test_id):
     form = Ready()
     session = db_session.create_session()
-    test = session.query(Test).filter(Test.id == f'{test_id}').first()
+    test = session.query(Test).filter(Test.id == test_id).first()
+
     if request.method == "POST":
 
         if form.submit_ready.data:
+            camera.release()
             test.is_finished = 1
+            alphabet = string.ascii_letters + string.digits
+            password = ''.join(secrets.choice(alphabet) for i in range(6))
+            test.result = f'data_cam/{password}.txt'
+            write_file(s, password)
             session.commit()
 
         return redirect('/history')
@@ -74,6 +86,7 @@ def history():
     test = session.query(Test).filter(Test.login_student == current_user.login, Test.is_finished == 1).all()
     test1 = session.query(Test).filter(Test.login_teacher == current_user.login, Test.is_finished == 1).all()
     test.extend(test1)
+
     return render_template('history.html', test=test)
 
 
@@ -95,59 +108,47 @@ def add_test():
         return redirect('/active')
     return render_template('add.html', form=form)
 
-# @blueprint.route('/addjob/<int:job_id>', methods=['GET', 'POST'])
-# @login_required
-# def edit_job(job_id):
-#     form = JobsForm()
-#     session = db_session.create_session()
-#     job = session.query(Jobs).filter(Jobs.id == job_id, Jobs.employer == current_user.id).first()
-#     if request.method == "GET":
-#         if job:
-#             form.description.data = job.description
-#             form.address.data = job.address
-#             form.date.data = job.date
-#             form.info.data = job.info
-#             form.is_finished.data = job.is_finished
-#         else:
-#             abort(404)
-#     if form.validate_on_submit():
-#         if job:
-#             job.description = form.description.data
-#             job.address = form.address.data
-#             job.date = form.date.data
-#             job.info = form.info.data
-#             job.is_finished = form.is_finished.data
-#
-#             address = form.address.data
-#             geocoder_api_server = "http://geocode-maps.yandex.ru/1.x/"
-#             geocoder_params = {
-#                 "apikey": "40d1649f-0493-4b70-98ba-98533de7710b",
-#                 "geocode": address,
-#                 "format": "json"}
-#             response = requests.get(geocoder_api_server, params=geocoder_params)
-#             if response:
-#                 json_response = response.json()
-#                 toponym = json_response["response"]["GeoObjectCollection"][
-#                     "featureMember"][0]["GeoObject"]
-#                 job.coords = toponym["Point"]["pos"]
-#
-#             session.commit()
-#             return redirect('/myjobs')
-#         else:
-#             abort(404)
-#     return render_template('edit_job.html', title='Редактирование обращения', form=form)
-#
-#
-# @blueprint.route('/job_delete/<int:job_id>', methods=['GET', 'POST'])
-# @login_required
-# def job_delete(job_id):
-#     session = db_session.create_session()
-#     job = session.query(Jobs).filter(Jobs.id == job_id, Jobs.employer == current_user.id).first()
-#     if job:
-#         session.delete(job)
-#         session.commit()
-#     else:
-#         abort(404)
-#     return redirect('/myjobs')
-#
-#
+
+@blueprint.route('/edit_test/<int:test_id>', methods=['GET', 'POST'])
+@login_required
+def edit_job(test_id):
+    form = TestForm()
+    session = db_session.create_session()
+    test = session.query(Test).filter(Test.id == test_id, Test.login_teacher == current_user.login).first()
+    if request.method == "GET":
+        if test:
+            form.login_student.data = test.login_student
+            form.description.data = test.description
+        else:
+            abort(404)
+    if form.validate_on_submit():
+        if test:
+            test.login_student = form.login_student.data
+            test.login_teacher = current_user.login
+            test.description = form.description.data
+            test.is_finished = 0
+
+            session.commit()
+            return redirect('/active')
+        else:
+            abort(404)
+    return render_template('add.html', title='Редактирование тестирования', form=form)
+
+
+@blueprint.route('/delete_test/<int:test_id>', methods=['GET', 'POST'])
+@login_required
+def test_delete(test_id):
+    session = db_session.create_session()
+    test = session.query(Test).filter(Test.id == test_id, Test.login_teacher == current_user.login).first()
+    if test:
+        session.delete(test)
+        session.commit()
+    else:
+        abort(404)
+    return redirect('/active')
+
+
+@blueprint.route('/data_cam/<path:filename>', methods=['GET', 'POST'])
+@login_required
+def download(filename):
+    return send_file(filename)
