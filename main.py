@@ -5,6 +5,7 @@ from flask_restful import Api
 from data import db_session
 from data import test_api, user_api
 from data.users import User
+from waitress import serve
 import cv2
 
 app = Flask(__name__)
@@ -31,7 +32,8 @@ def main():
     def not_found(error):
         return make_response(jsonify({'error': 'Not found'}), 404)
 
-    app.run()
+    # app.run()
+    serve(app, host='0.0.0.0', port=8000)
 
 
 if __name__ == '__main__':
